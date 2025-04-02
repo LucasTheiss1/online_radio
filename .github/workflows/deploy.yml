@@ -1,0 +1,29 @@
+name: Deploy Online Radio
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 * * * *'  # opcional: a cada hora, se quiser forçar atualização
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
+
+      - name: Configurar SSH
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Sincronizar arquivos para a instância EC2
+        run: |
+          rsync -avz --delete ./ ubuntu@<seu-ip-ec2>:/home/ubuntu/online_radio/
+          
+      - name: Reiniciar containers via Docker Compose
+        run: |
+          ssh ubuntu@<seu-ip-ec2> "cd /home/ubuntu/online_radio && docker-compose down && docker-compose up -d"
+
