@@ -22,18 +22,18 @@ jobs:
       - name: Adicionar chave de host do EC2
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H 18.229.141.109 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 35.179.123.46 >> ~/.ssh/known_hosts
 
 
       - name: Criando repositorio
         run: |
-          ssh ubuntu@18.229.141.109 "mkdir -p /home/ubuntu/online_radio"
+          ssh ubuntu@35.179.123.46 "mkdir -p /home/ubuntu/online_radio"
 
       - name: Sincronizar arquivos para a instância EC2
         run: |
-          rsync -avz --delete ./ ubuntu@18.229.141.109:/home/ubuntu/online_radio/
+          rsync -avz --delete ./ ubuntu@35.179.123.46:/home/ubuntu/online_radio/
           
       - name: Reiniciar containers via Docker Compose
         run: |
-          ssh ubuntu@18.229.141.109 "cd /home/ubuntu/online_radio && docker-compose down && docker-compose up -d"
+          ssh ubuntu@35.179.123.46 "cd /home/ubuntu/online_radio && docker-compose up -d"
 
