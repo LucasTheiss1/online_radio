@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  icecast:
+    image: moul/icecast
+    container_name: icecast
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./icecast-config:/config
+    environment:
+      - TZ=Europe/London
+    restart: unless-stopped
+
+  liquidsoap:
+    image: savonet/liquidsoap:rolling-release-v2.3.x
+    container_name: liquidsoap
+    volumes:
+      - ./liquidsoap:/etc/liquidsoap   # Onde seu script.liq está localizado
+      - /media/notebook/Data/Backup/Music/music:/music                 # Diretório com as músicas
+    depends_on:
+      - icecast
+    command: liquidsoap /etc/liquidsoap/script.liq
+    restart: unless-stopped
+
