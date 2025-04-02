@@ -20,9 +20,9 @@ jobs:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
       - name: Adicionar chave de host do EC2
-         run: |
-           mkdir -p ~/.ssh
-           ssh-keyscan -H 18.229.141.109 >> ~/.ssh/known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H 18.229.141.109 >> ~/.ssh/known_hosts
 
 
       - name: Criando repositorio
