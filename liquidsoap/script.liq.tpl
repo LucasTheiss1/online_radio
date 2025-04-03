@@ -19,7 +19,7 @@ nivelado = compress(
 output.icecast(%mp3,
   host="${ICECAST_HOSTNAME}",
   port=8000,
-  password="${ICECAST_ADMIN_PASSWORD}",
+  password="${ICECAST_SOURCE_PASSWORD}",
   mount="stream",
   name="Radio cloudbeats",
   url="${ICECAST_HOSTNAME}",
