@@ -13,6 +13,16 @@ jobs:
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v3
+        
+      - name: Gerar icecast.xml a partir do template
+        run: |
+          envsubst < ./icecast-config/icecast.xml.tpl > ./icecast-config/icecast.xml
+        env:
+          ICECAST_SOURCE_PASSWORD: ${{ secrets.ICECAST_SOURCE_PASSWORD }}
+          ICECAST_RELAY_PASSWORD: ${{ secrets.ICECAST_RELAY_PASSWORD }}
+          ICECAST_ADMIN_USER: ${{ secrets.ICECAST_ADMIN_USER }}
+          ICECAST_ADMIN_PASSWORD: ${{ secrets.ICECAST_ADMIN_PASSWORD }}
+          ICECAST_HOSTNAME: ${{ secrets.ICECAST_HOSTNAME }}
 
       - name: Configurar SSH
         uses: webfactory/ssh-agent@v0.9.1
