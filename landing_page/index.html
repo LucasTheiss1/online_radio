@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>CloudBeats</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #333;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .now-playing {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #e9e9e9;
+      border-radius: 5px;
+    }
+    .play-button {
+      display: inline-block;
+      background: #007BFF;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+    .play-button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <header>
+      <h1>CloudBeats</h1>
+  </header>
+  <div class="container">
+      <h2>Bem-vindo ao CloudBeats</h2>
+      <p>Sua rádio online com as melhores músicas e uma experiência sonora única!</p>
+      <div class="now-playing" id="nowPlaying">
+          <h3>Agora tocando:</h3>
+          <p id="trackInfo">Carregando...</p>
+      </div>
+      <!-- O botão redireciona para /stream que será proxyado para o Icecast -->
+      <a href="/stream" class="play-button">Play Radio</a>
+  </div>
+  
+  <script>
+    // Exemplo de função para buscar dados do Icecast via JSON.
+    // Supondo que o Icecast disponibilize o status em JSON no endpoint /status-json.xsl.
+    async function fetchNowPlaying() {
+      try {
+          const response = await fetch('/status-json.xsl');
+          if (!response.ok) {
+              throw new Error('Erro na resposta');
+          }
+          const data = await response.json();
+          // A estrutura pode variar; aqui usamos um exemplo:
+          let track = "Informação indisponível";
+          if(data.icestats && data.icestats.source) {
+              let source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
+              track = source.title || source.artist || "Desconhecido";
+          }
+          document.getElementById('trackInfo').textContent = track;
+      } catch (err) {
+          console.error(err);
+          document.getElementById('trackInfo').textContent = "Erro ao carregar informações";
+      }
+    }
+    fetchNowPlaying();
+    setInterval(fetchNowPlaying, 30000); // Atualiza a cada 30 segundos
+  </script>
+</body>
+</html>
