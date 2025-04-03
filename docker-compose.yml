@@ -17,7 +17,7 @@ services:
     container_name: liquidsoap
     volumes:
       - ./liquidsoap:/etc/liquidsoap   # Onde seu script.liq está localizado
-      - /media/notebook/Data/Backup/Music/music:/music                 # Diretório com as músicas
+      - /home/ubuntu/music/music:/music                 # Diretório com as músicas
     depends_on:
       - icecast
     command: liquidsoap /etc/liquidsoap/script.liq
