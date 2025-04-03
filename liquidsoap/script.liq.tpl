@@ -23,7 +23,7 @@ output.icecast(%mp3,
   mount="stream",
   name="Radio cloudbeats",
   url="${ICECAST_HOSTNAME}",
-  description="Best music for your cloud"
+  description="Best music for your cloud",
   radio
 )
 
