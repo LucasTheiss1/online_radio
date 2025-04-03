@@ -13,10 +13,10 @@ jobs:
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v3
-        
+
       - name: Gerar icecast.xml a partir do template
         run: |
-          envsubst < ./icecast-config/icecast.xml.tpl > ./icecast-config/icecast.xml
+          envsubst < ./icecast_config/icecast.xml.tpl > ./icecast_config/icecast.xml
         env:
           ICECAST_SOURCE_PASSWORD: ${{ secrets.ICECAST_SOURCE_PASSWORD }}
           ICECAST_RELAY_PASSWORD: ${{ secrets.ICECAST_RELAY_PASSWORD }}
