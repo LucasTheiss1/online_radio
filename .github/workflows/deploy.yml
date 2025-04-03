@@ -23,6 +23,13 @@ jobs:
           ICECAST_ADMIN_USER: ${{ secrets.ICECAST_ADMIN_USER }}
           ICECAST_ADMIN_PASSWORD: ${{ secrets.ICECAST_ADMIN_PASSWORD }}
           ICECAST_HOSTNAME: ${{ secrets.ICECAST_HOSTNAME }}
+          
+      - name: Gerar script.liq a partir do template
+        run: |
+          envsubst < ./liquidsoap/script.liq.tpl > ./liquidsoap/script.liq
+        env:
+          ICECAST_PASSWORD: ${{ secrets.ICECAST_PASSWORD }}
+          ICECAST_HOSTNAME: ${{ secrets.ICECAST_HOSTNAME }}
 
       - name: Configurar SSH
         uses: webfactory/ssh-agent@v0.9.1
