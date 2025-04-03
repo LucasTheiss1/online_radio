@@ -28,7 +28,7 @@ jobs:
         run: |
           envsubst < ./liquidsoap/script.liq.tpl > ./liquidsoap/script.liq
         env:
-          ICECAST_SOURCE_PASSWORD: ${{ secrets.IICECAST_SOURCE_PASSWORD }}
+          ICECAST_SOURCE_PASSWORD: ${{ secrets.ICECAST_SOURCE_PASSWORD }}
           ICECAST_HOSTNAME: ${{ secrets.ICECAST_HOSTNAME }}
 
       - name: Configurar SSH
