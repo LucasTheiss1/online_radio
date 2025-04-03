@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./icecast_config/icecast.xml:/etc/icecast2/icecast.xml
+      - ./icecast_config/icecast.xml:/etc/icecast2/
     environment:
       - TZ=Europe/London
     restart: unless-stopped
