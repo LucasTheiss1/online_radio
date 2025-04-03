@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./icecast_config/icecast.xml:/etc/icecast2/icecast.xml:ro
+      - ./icecast_config/icecast.xml:/etc/icecast2/icecast.xml
     environment:
       - TZ=Europe/London
     restart: unless-stopped
@@ -16,7 +16,7 @@ services:
     image: savonet/liquidsoap:rolling-release-v2.3.x
     container_name: liquidsoap
     volumes:
-      - ./liquidsoap:/etc/liquidsoap   # Onde seu script.liq está localizado
+      - ./liquidsoap/script.liq:/etc/liquidsoap   # Onde seu script.liq está localizado
       - /home/ubuntu/music/music:/music                 # Diretório com as músicas
     depends_on:
       - icecast
@@ -27,9 +27,9 @@ services:
     image: nginx:latest
     container_name: nginx_proxy
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
-      - ./landing_page/:/usr/share/nginx/html:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./landing_page/index.html:/usr/share/nginx/html
     ports:
       - "80:80"
     restart: unless-stopped
