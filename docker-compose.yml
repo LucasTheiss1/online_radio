@@ -16,7 +16,7 @@ services:
     image: savonet/liquidsoap:rolling-release-v2.3.x
     container_name: liquidsoap
     volumes:
-      - ./liquidsoap/script.liq:/etc/liquidsoap   # Onde seu script.liq está localizado
+      - ./liquidsoap/script.liq:/etc/liquidsoap/script.liq   # Onde seu script.liq está localizado
       - /home/ubuntu/music/music:/music                 # Diretório com as músicas
     depends_on:
       - icecast
