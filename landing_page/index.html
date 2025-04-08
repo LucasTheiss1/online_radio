@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>CloudBeats</title>
@@ -43,6 +43,10 @@
     .play-button:hover {
       background: #0056b3;
     }
+    
+    .player { 
+      margin-top: 1rem; text-align: center; 
+    }
   </style>
 </head>
 <body>
@@ -56,8 +60,12 @@
           <h3>Now playing:</h3>
           <p id="trackInfo">Loading...</p>
       </div>
-      <!-- O botão redireciona para /stream que será proxyado para o Icecast -->
-      <a href="/stream" class="play-button">Play Radio</a>
+      <!-- Player de áudio integrado -->
+      <div class="player">
+        <audio id="radioPlayer" controls>
+            <source src="http://cloudbeats.online/stream" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
   </div>
   
   <script>
