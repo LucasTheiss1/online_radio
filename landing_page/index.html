@@ -50,11 +50,11 @@
       <h1>CloudBeats</h1>
   </header>
   <div class="container">
-      <h2>Bem-vindo ao CloudBeats</h2>
-      <p>Sua rádio online com as melhores músicas e uma experiência sonora única!</p>
+      <h2>Welcome to CloudBeats</h2>
+      <p>Your online radio with the best music and a unique sound experience!</p>
       <div class="now-playing" id="nowPlaying">
-          <h3>Agora tocando:</h3>
-          <p id="trackInfo">Carregando...</p>
+          <h3>Now playing:</h3>
+          <p id="trackInfo">Loading...</p>
       </div>
       <!-- O botão redireciona para /stream que será proxyado para o Icecast -->
       <a href="/stream" class="play-button">Play Radio</a>
@@ -67,19 +67,19 @@
       try {
           const response = await fetch('/status-json.xsl');
           if (!response.ok) {
-              throw new Error('Erro na resposta');
+              throw new Error('Error fetching data');
           }
           const data = await response.json();
           // A estrutura pode variar; aqui usamos um exemplo:
-          let track = "Informação indisponível";
+          let track = "Information not available";
           if(data.icestats && data.icestats.source) {
               let source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
-              track = source.title || source.artist || "Desconhecido";
+              track = source.title || source.artist || "Unknown track";
           }
           document.getElementById('trackInfo').textContent = track;
       } catch (err) {
           console.error(err);
-          document.getElementById('trackInfo').textContent = "Erro ao carregar informações";
+          document.getElementById('trackInfo').textContent = "Error loading track info";
       }
     }
     fetchNowPlaying();
