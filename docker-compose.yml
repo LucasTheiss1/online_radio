@@ -19,6 +19,8 @@ services:
       - ./liquidsoap/script.liq:/etc/liquidsoap/script.liq   # Onde seu script.liq está localizado
       - /home/ubuntu/music/music:/home/ubuntu/music/music
       - /home/ubuntu/playlists:/playlists                 # Diretório com as músicas
+    environment:
+      - TZ=Europe/London
     depends_on:
       - icecast
     command: liquidsoap /etc/liquidsoap/script.liq
