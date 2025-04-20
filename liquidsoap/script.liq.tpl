@@ -1,8 +1,8 @@
 myplaylist = playlist(mode="random", reload_mode="watch", "/music/playlist.m3u")
 
-primeira_playlist = playlist(mode="random", reload_mode="watch", "/home/ubuntu/playlists/playlist_1.m3u")
-segunda_playlist = playlist(mode="random", reload_mode="watch", "/home/ubuntu/playlists/playlist_2.m3u")
-terceira_playlist = playlist(mode="random", reload_mode="watch", "/home/ubuntu/playlists/playlist_3.m3u")
+primeira_playlist = playlist(mode="random", reload_mode="watch", "/playlists/playlist_1.m3u")
+segunda_playlist = playlist(mode="random", reload_mode="watch", "/playlists/playlist_2.m3u")
+terceira_playlist = playlist(mode="random", reload_mode="watch", "/playlists/playlist_3.m3u")
 
 radio = switch( [
   ({12h00-16h30},  primeira_playlist),
