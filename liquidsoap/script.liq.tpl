@@ -1,4 +1,4 @@
-myplaylist = playlist(mode="random", reload_mode="watch", "/music/playlist.m3u")
+myplaylist = playlist(mode="random", reload_mode="watch", "/home/ubuntu/music/music/playlist.m3u")
 
 primeira_playlist = playlist(mode="random", reload_mode="watch", "/playlists/playlist_1.m3u")
 segunda_playlist = playlist(mode="random", reload_mode="watch", "/playlists/playlist_2.m3u")
