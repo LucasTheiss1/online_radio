@@ -59,39 +59,71 @@
       <div class="now-playing" id="nowPlaying">
           <h3>Now playing:</h3>
           <p id="trackInfo">Loading...</p>
+        </div>
+        <!-- Player de áudio -->
+        <div class="player">
+          <audio id="radioPlayer" controls autoplay></audio>
+        </div>
       </div>
-      <!-- Player de áudio integrado -->
-      <div class="player">
-        <audio id="radioPlayer" controls>
-            <source src="https://cloudbeats.online/stream" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-  </div>
-  
-  <script>
-    // Exemplo de função para buscar dados do Icecast via JSON.
-    // Supondo que o Icecast disponibilize o status em JSON no endpoint /status-json.xsl.
-    async function fetchNowPlaying() {
-      try {
-          const response = await fetch('/status-json.xsl');
-          if (!response.ok) {
-              throw new Error('Error fetching data');
-          }
-          const data = await response.json();
-          // A estrutura pode variar; aqui usamos um exemplo:
-          let track = "Information not available";
-          if(data.icestats && data.icestats.source) {
-              let source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
+    
+      <script>
+        const STREAM_URL = 'https://cloudbeats.online/stream';
+        const STATUS_URL = '/status-json.xsl';
+        const player = document.getElementById('radioPlayer');
+        const trackInfo = document.getElementById('trackInfo');
+        let wasPaused = false;
+    
+        // Atualiza o nome da faixa atual
+        async function fetchNowPlaying() {
+          try {
+            const response = await fetch(STATUS_URL);
+            if (!response.ok) throw new Error('Failed to fetch status information.');
+            const data = await response.json();
+            let track = "Informação indisponível";
+    
+            if (data.icestats && data.icestats.source) {
+              const source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
               track = source.title || source.artist || "Unknown track";
+            }
+    
+            trackInfo.textContent = track;
+          } catch (err) {
+            console.error(err);
+            trackInfo.textContent = "Unable to load track information.";
           }
-          document.getElementById('trackInfo').textContent = track;
-      } catch (err) {
-          console.error(err);
-          document.getElementById('trackInfo').textContent = "Error loading track info";
-      }
-    }
-    fetchNowPlaying();
-    setInterval(fetchNowPlaying, 30000); // Atualiza a cada 30 segundos
-  </script>
-</body>
-</html>
+        }
+    
+        // Força reconexão (usando timestamp para evitar cache)
+        function forceReconnect() {
+          const noCacheUrl = STREAM_URL + '?t=' + new Date().getTime();
+          player.src = noCacheUrl;
+          player.load();
+          player.play()
+            .then(() => fetchNowPlaying())
+            .catch(e => console.log('Erro ao tocar stream:', e));
+        }
+    
+        // Eventos do player
+        player.addEventListener('pause', () => {
+          wasPaused = true;
+        });
+    
+        player.addEventListener('play', () => {
+          if (wasPaused) {
+            forceReconnect();
+            wasPaused = false;
+          }
+        });
+    
+        player.addEventListener('error', () => {
+          console.log('An error occurred. Attempting to reconnect in 3 seconds...');
+          setTimeout(forceReconnect, 3000);
+        });
+    
+        // Inicialização
+        forceReconnect(); // inicia o player com cache-busting
+        fetchNowPlaying(); // carrega a primeira faixa
+        setInterval(fetchNowPlaying, 30000); // atualiza a cada 30s
+      </script>
+    </body>
+    </html>
