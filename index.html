@@ -4,55 +4,55 @@
   <meta charset="UTF-8">
   <title>CloudBeats</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #333;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-    }
-    .container {
-      max-width: 800px;
-      margin: 2rem auto;
-      background: #fff;
-      padding: 2rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .now-playing {
-      margin-top: 1rem;
-      padding: 1rem;
-      background: #e9e9e9;
-      border-radius: 5px;
-    }
-    .play-button {
-      display: inline-block;
-      background: #007BFF;
-      color: #fff;
-      padding: 1rem 2rem;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 1.2rem;
-      margin-top: 1rem;
-    }
-    .play-button:hover {
-      background: #0056b3;
-    }
-    
-    .player { 
-      margin-top: 1rem; text-align: center; 
-    }
-  </style>
+  <!--Font Awesome-->
+  <script src="https://kit.fontawesome.com/7172f57cd6.js" crossorigin="anonymous"></script>
+  <!--Bootstrap link-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <!--Link to css style-->
+  <link href="assets/css/style.css" rel="stylesheet">
 </head>
+
 <body>
+  <!--Navbar bootstrap-->
+  <nav id="navbar" class="navbar navbar-expand-lg" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+        <i class="fa-brands fa-creative-commons-sampling logo"></i>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown link
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
   <header>
       <h1>CloudBeats</h1>
   </header>
+
   <div class="container">
       <h2>Welcome to CloudBeats</h2>
       <p>Your online radio with the best music and a unique sound experience!</p>
@@ -125,5 +125,9 @@
         fetchNowPlaying(); // carrega a primeira faixa
         setInterval(fetchNowPlaying, 30000); // atualiza a cada 30s
       </script>
+      <footer>
+        <div>Coopy right footer</div>
+      </footer>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     </body>
     </html>
