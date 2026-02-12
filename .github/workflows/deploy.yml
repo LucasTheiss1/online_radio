@@ -1,6 +1,6 @@
 name: Deploy Online Radio
 
-on:
+'on':
   push:
     branches:
       - main
@@ -44,8 +44,7 @@ jobs:
       - name: Sincronizar arquivos para a instância EC2
         run: |
           rsync -avz --delete ./ ubuntu@35.179.123.46:/home/ubuntu/online_radio/
-          
+
       - name: Reiniciar containers via Docker Compose
         run: |
           ssh ubuntu@35.179.123.46 "cd /home/ubuntu/online_radio && docker-compose restart"
-
